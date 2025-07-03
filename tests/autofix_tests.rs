@@ -219,3 +219,38 @@ This one is missing the opening newline.
 </Admonition>"#
     );
 }
+
+#[test]
+fn test_autofix_rule006_admonition_line_separation() {
+    let tempdir = TempDir::new().unwrap();
+    let bad_file = r#"# Test admonition line separation
+
+<Admonition type=\"note\">
+
+This admonition has multiple lines.
+That are only separated by a single line break.
+
+</Admonition>"#;
+    fs::write(tempdir.path().join("bad.mdx"), bad_file).unwrap();
+
+    let mut cmd = Command::cargo_bin("supa-mdx-lint").unwrap();
+    cmd.arg(tempdir.path().join("bad.mdx"))
+        .arg("--config")
+        .arg("tests/supa-mdx-lint.config.toml")
+        .arg("--fix");
+    cmd.assert().success();
+
+    let result = fs::read_to_string(tempdir.path().join("bad.mdx")).unwrap();
+    assert_eq!(
+        result,
+        r#"# Test admonition line separation
+
+<Admonition type=\"note\">
+
+This admonition has multiple lines.
+
+That are only separated by a single line break.
+
+</Admonition>"#
+    );
+}
