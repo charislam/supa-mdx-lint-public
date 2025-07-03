@@ -225,7 +225,7 @@ fn test_autofix_rule006_admonition_line_separation() {
     let tempdir = TempDir::new().unwrap();
     let bad_file = r#"# Test admonition line separation
 
-<Admonition type=\"note\">
+<Admonition type="note">
 
 This admonition has multiple lines.
 That are only separated by a single line break.
@@ -245,7 +245,7 @@ That are only separated by a single line break.
         result,
         r#"# Test admonition line separation
 
-<Admonition type=\"note\">
+<Admonition type="note">
 
 This admonition has multiple lines.
 

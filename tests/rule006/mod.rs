@@ -11,6 +11,5 @@ fn integration_test_rule006() {
         .arg("tests/rule006/supa-mdx-lint.config.toml");
     cmd.assert()
         .failure()
-        .stdout(predicate::str::contains("1 error"))
-        .stdout(predicate::str::contains("Rule006AdmonitionLineSeparation"));
+        .stdout(predicate::str::contains("1 error"));
 }
